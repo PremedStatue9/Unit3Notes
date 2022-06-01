@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .size {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="content">
+    <h1></h1>
+    <img class="size" src="https://ameobea.b-cdn.net/osutrack/Mixins/userImage.php?u=4787150">
+    <p>Score: 0</p>
+    <button id="clickButton">Click Me!</button>
+    <button id="reset">Restart</button>
+    <button class="hidden" id="double">Double Score: 100 score</button>
+  </div>
+</div>
+
+<script>
+  let pressButton = document.getElementById('clickButton');
+  let restartButton = document.getElementById('reset');
+  let doubleScore = document.getElementById('double');
+  const gameOverMessage = document.querySelector('h1');
+  const score = document.querySelector('p');
+  const picture = document.querySelector('img');
+  let startScore = 0;
+  restartButton.addEventListener('click', function (e) {
+    location.reload();
+  });
+
+  pressButton.addEventListener('click', function (e) {
+    addScore();
+    setDoubleScore();
+    console.log(`Times clicked: ${startScore}`);
+  });
+  doubleScore.addEventListener('click', function (e) {
+    clickDoubleScore();
+  });
+
+  function addScore() {
+    startScore = startScore + 1;
+    let counter = score;
+    counter.innerHTML = `Score: ${startScore}`;
+  }
+
+  function multiplyScore() {
+    startScore = startScore * 2;
+    let counter = score;
+    counter.innerHTML = `Score: ${startScore}`;
+  }
+
+  function setDoubleScore() {
+    if (startScore < 50) {
+      doubleScore.classList.add("hidden")
+    } else {
+      picture.src = "https://external-preview.redd.it/E_04UTh-H9wugaMN808YS8WKb-f-yYPZ94Wsuf5fdOA.jpg?auto=webp&s=2054623dfa2d3f9d76160266d37e62f7f100aa61";
+      doubleScore.classList.remove("hidden")
+    }
+  }
+
+  function clickDoubleScore() {
+    if (startScore < 100) {
+      let counter = score;
+      counter.innerHTML = `Score: ${startScore}`;
+    } else if (startScore >= 100) {
+      startScore = startScore - 100;
+      let counter = score;
+      counter.innerHTML = `Score : ${startScore}`;
+      pressButton.addEventListener('click', function (e) {
+        picture.src = "https://i.ppy.sh/dc06ba4cbf03c40106ba162481f85de1b4dc4c86/68747470733a2f2f692e696d6775722e636f6d2f354d546e4a424b2e706e67";
+        multiplyScore();
+        if (startScore >= 500) {
+          picture.src = "https://a.ppy.sh/7562902"
+        }
+        announceWin()
+      });
+      doubleScore.remove()
+    }
+  }
+
+  function announceWin() {
+    if (startScore >= 100000) {
+      gameOverMessage.textContent = "You Win!";
+      picture.remove();
+      score.remove();
+      pressButton.remove()
+    }
+  }
+
+
+</script>
+</body>
+</html>
