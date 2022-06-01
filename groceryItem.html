@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div>
+            <label for="item">Item</label>
+            <input id="item" type="text">
+        </div>
+        <button id="add">Add Item</button>
+        <ul></ul>
+    </div>
+</div>
+
+<script>
+    const groceryItem = document.getElementById('item');
+    const addButton = document.getElementById('add');
+    const myList = document.querySelector('ul');
+
+    function addItem(){
+        let item = groceryItem.value;
+        let newElement = document.createElement('li');
+        newElement.innerHTML = item;
+        newElement.addEventListener('click', function(e){
+            newElement.remove()
+        });
+        myList.appendChild(newElement);
+        groceryItem.value = '';
+    }
+    addButton.addEventListener('click', addItem)
+
+</script>
+
+</body>
+</html>
